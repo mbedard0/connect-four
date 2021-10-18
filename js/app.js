@@ -9,18 +9,9 @@ let circles = document.querySelectorAll('.circle')
 
 /*-------------------------------- Constants --------------------------------*/
 
-const column0 = [board[0], board[6], board[12], board[18], board[24]]
-const column1 = [board[1], board[7], board[13], board[19], board[25]]
-const column2 = [board[2], board[8], board[14], board[20], board[26]]
-const column3 = [board[3], board[9], board[15], board[21], board[27]]
-const column4 = [board[4], board[10], board[16], board[22], board[28]]
-const column5 = [board[5], board[11], board[17], board[23], board[29]]
-
-const columnsAll = [column0, column1, column2, column3, column4, column5]
-
 /*---------------------------- Variables (state) ----------------------------*/
 
-let isGameOver, playerTurn, winConditions, columnNumber, circleId, boardArr
+let isGameOver, playerTurn, winConditions, columnNumber, boardArr
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -35,11 +26,12 @@ function init(){
   startMsg.innerText = 'Start the game by picking a color.';
   start.style.display = 'block';
   boardArr = [
-    0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0,
   ];
   isGameOver = false;
   // clear pieces from the board
@@ -88,24 +80,10 @@ function handleClick(evt) {
 }
 
 function getColumn(columnNumber) {
-  let arr = [columnNumber, columnNumber+6, columnNumber+12, columnNumber+18, columnNumber+24];
+  let arr = [columnNumber, columnNumber+7, columnNumber+14, columnNumber+21, columnNumber+28, columnNumber+35];
+  console.log(arr)
   return arr;
 }
-// column 0: board[0, 6, 12, 18, 24]
-// column 1: board[1, 7, 13, 19, 25]
-// column 2: board[2, 8, 14, 20, 26]
-// column 3: board[3, 9, 15, 21, 27]
-// column 4: board[4, 10, 16, 22, 28]
-// column 5: board[5, 11, 17, 23, 29]
-
-    // if (boardArr[clNumArr[4]] === 0) {
-      //   boardArr[clNumArr[4]] = playerTurn;
-      // }
-
-
-// function render() {
-//   columnNumber
-// }
 
 // function handleClick(evt) {
 //   let idx = parseInt(evt.target.id);
