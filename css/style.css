@@ -33,12 +33,26 @@ flex-direction: column;
 
 }
 
+.columns {
+  display: grid;
+  grid-template-columns: repeat(6, 10vmin);
+  grid-gap: 1vmin;
+  justify-content: center;
+  height: 50px;
+}
+
+.flex-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 section#board {
-display: grid;
-grid-template-rows: repeat(5, 10vmin);
-grid-template-columns: repeat(6, 10vmin);
-grid-gap: 0vmin;
-justify-content: center;
+  display: grid;
+  grid-template-rows: repeat(5, 10vmin);
+  grid-template-columns: repeat(6, 10vmin);
+  grid-gap: 0vmin;
+  justify-content: center;
 }
 
 section#startBtns {
