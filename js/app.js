@@ -11,7 +11,7 @@ let circles = document.querySelectorAll('.circle')
 
 /*---------------------------- Variables (state) ----------------------------*/
 
-let isGameOver, playerTurn, winConditions, columnNumber, boardArr
+let isGameOver, playerTurn, columnNumber, boardArr
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -36,6 +36,7 @@ function init() {
   isGameOver = false;
   playerTurn = 0;
   render();
+  
 }
 
 function render() {
@@ -64,9 +65,11 @@ function handleStartClick(evt) {
 }
 
 function handleClick(evt) {
+  if (isGameOver === true) {
+    return;
+  }
   columnNumber = parseInt(evt.target.id[2]);
   let clNumArr = getColumn(columnNumber);
-  // circleId = evt.target.id.slice(4,6)
   if (evt.target.id === 'board') {
     return;
   } else {
@@ -85,4 +88,9 @@ function handleClick(evt) {
 function getColumn(columnNumber) {
   let arr = [columnNumber, columnNumber + 7, columnNumber + 14, columnNumber + 21, columnNumber + 28, columnNumber + 35];
   return arr;
+}
+
+function winConditions() {
+  if () {}
+  isGameOver = true
 }
