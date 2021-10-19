@@ -15,14 +15,14 @@ let isGameOver, playerTurn, winConditions, columnNumber, boardArr
 
 /*----------------------------- Event Listeners -----------------------------*/
 
-start.addEventListener('click',handleStartClick)
+start.addEventListener('click', handleStartClick)
 reset.addEventListener('click', init)
 board.addEventListener('click', handleClick)
 
 /*-------------------------------- Functions --------------------------------*/
 init()
 
-function init(){
+function init() {
   startMsg.innerText = 'Start the game by picking a color.';
   start.style.display = 'block';
   boardArr = [
@@ -34,20 +34,22 @@ function init(){
     0, 0, 0, 0, 0, 0, 0,
   ];
   isGameOver = false;
-  // clear pieces from the board
-  // reset all values to null
-  // make start buttons appear
-  // render();
+  render();
 }
 
 function render() {
-  if (boardArr === 0) {
-  } else if (boardArr === 1) {
-  }
-  else if (boardArr === -1) {
-  }
+  boardArr.forEach((item, idx) => {
+    if (item === 0) {
+      console.log('0')
+    } else if (item === 1) {
+      console.log('1')
+      circles[idx].classList.add('white-circle')
+      console.log(circles[idx])
+    } else if (item === -1) {
+      circles[idx].classList.add('gray-circle')
+    }
+  });
 }
-
 
 
 function handleStartClick(evt) {
@@ -70,7 +72,7 @@ function handleClick(evt) {
     for (let i = clNumArr.length - 1; i >= 0; i--) {
       if (boardArr[clNumArr[i]] === 0) {
         boardArr[clNumArr[i]] = playerTurn;
-        playerTurn = playerTurn*-1
+        playerTurn = playerTurn * -1
         console.log(boardArr)
         break;
       }
@@ -80,8 +82,7 @@ function handleClick(evt) {
 }
 
 function getColumn(columnNumber) {
-  let arr = [columnNumber, columnNumber+7, columnNumber+14, columnNumber+21, columnNumber+28, columnNumber+35];
-  console.log(arr)
+  let arr = [columnNumber, columnNumber + 7, columnNumber + 14, columnNumber + 21, columnNumber + 28, columnNumber + 35];
   return arr;
 }
 
