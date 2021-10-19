@@ -34,30 +34,31 @@ function init() {
     0, 0, 0, 0, 0, 0, 0,
   ];
   isGameOver = false;
+  playerTurn = 0;
   render();
 }
 
 function render() {
   boardArr.forEach((item, idx) => {
     if (item === 0) {
-      console.log('0')
+      circles[idx].classList.remove('white-circle');
+      circles[idx].classList.remove('gray-circle');
     } else if (item === 1) {
-      console.log('1')
-      circles[idx].classList.add('white-circle')
+      circles[idx].classList.add('white-circle');
       console.log(circles[idx])
     } else if (item === -1) {
-      circles[idx].classList.add('gray-circle')
+      circles[idx].classList.add('gray-circle');
     }
   });
 }
 
 
 function handleStartClick(evt) {
-  startMsg.innerHTML = `<h3>Choose the column you'd like to drop your piece down</h3>`;
+  startMsg.innerHTML = `<h3>Choose the column you'd like to drop your piece down.</h3><br><p>First to get four chips in a row wins!</p>`;
   start.style.display = 'none';
   if (evt.target.id === 'whiteStartBtn') {
     playerTurn = 1;
-  } else if (evt.target.id === 'blackStartBtn') {
+  } else if (evt.target.id === 'grayStartBtn') {
     playerTurn = -1;
   }
 }
@@ -85,70 +86,3 @@ function getColumn(columnNumber) {
   let arr = [columnNumber, columnNumber + 7, columnNumber + 14, columnNumber + 21, columnNumber + 28, columnNumber + 35];
   return arr;
 }
-
-// function handleClick(evt) {
-//   let idx = parseInt(evt.target.id);
-//   console.log(idx)
-//   if (isGameOver === true) {
-//     return;
-//   } else {
-//     let colArr = board[idx];
-//     console.log(colArr, board[idx])
-    // let rowIdx = colArr.indexOf(0);
-    // }
-    // if target id === 
-  // } 
-  // take the id of the circle +
-  // convert it to the column -> take id and then match it the column in the board array (?)
-  // find the lowest null circle in that column
-  // assign playerTurn value to that circle
-
-
-  // let idx = parseInt(evt.target.id);
-  // if (board[idx] === 1 || board[idx] === -1) {
-  //   startMsg.innerText = `That circle's already been picked!`
-  // } 
-//   render();
-
-
-// function render() {
-//   let columnSelected, circleSelected;
-//   if (evt.target.id === 'board') {
-//     topMsg.innerText = `Try again, you need to click inside the circle to drop your piece!`;
-//     return;
-//   } else {
-//     circleSelected = parseInt(evt.target.id)
-//   } if (circleSelected === 0 || circleSelected === 6 || circleSelected === 12 || circleSelected === 18 || circleSelected === 24) {
-//     columnSelected = 0;
-//   }
-//   if (columnSelected === 0 && playerTurn === 1) {
-//     document.getElementById('24').style.cssText = 'background-color: white; color: white; border-radius: 50%; width: 50px; height: 50px;'
-//   } else if (columnSelected === 0 && playerTurn === -1) {
-//     document.getElementById('24').classList.add('gray-circle')
-//     console.log(board)
-//   }
-  // = playerTurn;
-//     playerTurn = playerTurn * -1;
-// }
-
-// function getColumn(idx) {
-//   let arr = 
-// }
-
-// function render() {
-//   circles.forEach((circle, idx) => {
-//     if (board[idx] === 1) {
-//       circle.innerText = 'X';
-//     } else if (board[idx] === -1) {
-//       circle.innerText = 'O';
-//     } else {
-//       circle.innerText = '';
-//     }
-//   }) 
-//   topMsg.innerText = '';
-  // isGameOver()
-// }
-
-  // needs to put pieces at the bottom of each row --> if 0-5 are picked, then 24-29 are shown
-
-// gameOver(), redBtn(), blackBtn()
