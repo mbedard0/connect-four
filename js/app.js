@@ -11,7 +11,7 @@ let circles = document.querySelectorAll('.circle')
 
 /*---------------------------- Variables (state) ----------------------------*/
 
-let isGameOver, playerTurn, columnNumber, boardArr
+let isGameOver, playerTurn, boardArr, rowNumber
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -46,11 +46,11 @@ function render() {
       circles[idx].classList.remove('gray-circle');
     } else if (item === 1) {
       circles[idx].classList.add('white-circle');
-      console.log(circles[idx])
     } else if (item === -1) {
       circles[idx].classList.add('gray-circle');
     }
   });
+  // call winConditions function here
 }
 
 
@@ -68,7 +68,8 @@ function handleClick(evt) {
   if (isGameOver === true) {
     return;
   }
-  columnNumber = parseInt(evt.target.id[2]);
+  let columnNumber = parseInt(evt.target.id[2]);
+  // rowNumber = parseInt(evt.target.id[4]);
   let clNumArr = getColumn(columnNumber);
   if (evt.target.id === 'board') {
     return;
@@ -90,7 +91,25 @@ function getColumn(columnNumber) {
   return arr;
 }
 
-function winConditions() {
-  if () {}
-  isGameOver = true
+function getRow(rowNumber) {
+  let arr = [rowNumber, rowNumber + 6, rowNumber + 12, rowNumber + 18, rowNumber + 24, rowNumber + 30];
+  return arr;
 }
+
+
+// function winConditions() {
+//   if (vertWin(clNumArr) == true) {
+//     isGameOver = true
+//   }
+// }
+
+// function vertWin(clNumArr) {
+//   console.log(clNumArr)
+//   getRow(clNumArr);
+//   console.log(getRow(clNumArr))
+//   clNumArr.reduce(function(a, b) {
+//     if (a === b) {
+//       console.log('hi')
+//     }
+//   },0)
+// }
