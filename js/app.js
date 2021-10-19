@@ -11,7 +11,7 @@ let circles = document.querySelectorAll('.circle')
 
 /*---------------------------- Variables (state) ----------------------------*/
 
-let isGameOver, playerTurn, boardArr, rowNumber
+let isGameOver, playerTurn, boardArr, rowNumber, clNumArr
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -50,7 +50,6 @@ function render() {
       circles[idx].classList.add('gray-circle');
     }
   });
-  // call winConditions function here
 }
 
 
@@ -69,8 +68,8 @@ function handleClick(evt) {
     return;
   }
   let columnNumber = parseInt(evt.target.id[2]);
-  // rowNumber = parseInt(evt.target.id[4]);
-  let clNumArr = getColumn(columnNumber);
+  rowNumber = parseInt(evt.target.id[4]);
+  clNumArr = getColumn(columnNumber);
   if (evt.target.id === 'board') {
     return;
   } else {
@@ -83,6 +82,7 @@ function handleClick(evt) {
       }
     }
   }
+  isGameOver = winConditions(rowNumber, columnNumber);
   render()
 }
 
@@ -96,20 +96,29 @@ function getRow(rowNumber) {
   return arr;
 }
 
+function columnArrValues(arr) {
+  let newArray = [];
+  for (let i = 0; i < arr.length; i++) {
+    newArray.push(board[arr[i]]);
+  }
+  return newArray;
+}
 
-// function winConditions() {
-//   if (vertWin(clNumArr) == true) {
-//     isGameOver = true
-//   }
-// }
+function winConditions() {
+  if (vertWin(arr) === true) {
+    isGameOver = true;
+  } else if (horizontalWin(arr) === true) {
+    isGameOver = true;
+  } else if (diag1Win(arr) === true) {
+    isGameOver = true;
+  } else if ()
+}
 
-// function vertWin(clNumArr) {
-//   console.log(clNumArr)
-//   getRow(clNumArr);
-//   console.log(getRow(clNumArr))
-//   clNumArr.reduce(function(a, b) {
-//     if (a === b) {
-//       console.log('hi')
-//     }
-//   },0)
-// }
+function vertWin(arr) {
+  
+  clNumArr.reduce(function(a, b) {
+    if (a === b) {
+      console.log('hi')
+    }
+  },0)
+}
