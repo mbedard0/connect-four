@@ -37,6 +37,8 @@ function init() {
   ];
   isGameOver = false;
   playerTurn = 0;
+  render();
+  topMsg.innerText = '';
 }
 
 function render() {
@@ -50,7 +52,6 @@ function render() {
       circles[idx].classList.add('gray-circle');
     }
   });
-  console.log(winner)
   if (winner !== 0) {
     gameOver();
 }
@@ -71,16 +72,18 @@ function handleClick(evt) {
     return;
   }
   let columnNumber = parseInt(evt.target.id[2]);
-  let rowNumber;
-  let idxNum = parseInt(evt.target.id.slice(8,10));
+  let rowNumber, idxNum;
   let clNumArr = getColumn(columnNumber);
   if (evt.target.id === 'board') {
     return;
   } else {
     for (let i = clNumArr.length - 1; i >= 0; i--) {
       if (boardArr[clNumArr[i]] === 0) {
+        idxNum = (clNumArr[i])
         rowNumber = i;
         boardArr[clNumArr[i]] = playerTurn;
+        console.log('playerTurn')
+        console.log(playerTurn)
         playerTurn = playerTurn * -1;
         console.log(boardArr)
         break;
@@ -88,7 +91,6 @@ function handleClick(evt) {
     }
   }
   winner = winConditions(rowNumber, columnNumber, idxNum);
-  console.log(rowNumber)
   render()
 }
 
@@ -96,17 +98,22 @@ function getColumn(columnNumber) {
   let arr = [columnNumber, columnNumber + 7, columnNumber + 14, columnNumber + 21, columnNumber + 28, columnNumber + 35];
   return arr;
 }
-// bottom row is 35 - 41
+
 function getRow(rowNumber) {
-  console.log('getRow rowNumber')
+  console.log('rowNum')
   console.log(rowNumber)
   let arr = [rowNumber*7, (rowNumber*7)+1, (rowNumber*7)+2, (rowNumber*7)+3, (rowNumber*7)+4, (rowNumber*7)+5,(rowNumber*7)+6];
-  console.log('getRow returns this array')
-  console.log(arr)
   return arr;
 }
 
 function getDiagonal1(idxNum, columnNumber, rowNumber) {
+  // idxNum is returning what's being clicked on, but what I want is the one it drops down to --> which I calculate somewhere else...
+  console.log('idxNum')
+  console.log(idxNum)
+  console.log('columnNum')
+  console.log(columnNumber)
+  console.log('rowNumber')
+  console.log(rowNumber)
   let arr = [];
   let height = 5 - rowNumber;
   let colToRight = 6 - columnNumber;
@@ -134,13 +141,10 @@ function getDiagonal2(idxNum, columnNumber, rowNumber) {
 
 
 function winConditions(rowNumber, columnNumber, idxNum) {
-  console.log('rowNumber at winCondition')
-  console.log(rowNumber)
   let vertWin = didWin(getColumn(columnNumber));
-  let horizontalWin = didWin(getRow(rowNumber)); // currently doesn't work
-  console.log(didWin(getRow(rowNumber)))
-  let diagWin1 = didWin(getDiagonal1(idxNum))
-  let diagWin2 = didWin(getDiagonal2(idxNum)) // currently doesn't work
+  let horizontalWin = didWin(getRow(rowNumber));
+  let diagWin1 = didWin(getDiagonal1(idxNum, columnNumber, rowNumber)) // currently doesn't work
+  let diagWin2 = didWin(getDiagonal2(idxNum, columnNumber, rowNumber)) // currently doesn't work
   if (vertWin !== 0) {
     isGameOver = true;
     return vertWin
@@ -161,7 +165,7 @@ function winConditions(rowNumber, columnNumber, idxNum) {
 function lengthArrValues(arr) {
   let newArray = [];
   for (let i = 0; i < arr.length; i++) {
-    newArray.push(boardArr[arr[i]]); // does this just need to be the idx num?
+    newArray.push(boardArr[arr[i]]); 
   }
   console.log('newArray at lengthArrValues')
   console.log(newArray)
@@ -202,7 +206,9 @@ function createConsecutiveArray(arr2) {
 function gameOver() {
   if (winner === 1) {
     topMsg.innerText = `White has won!`;
+    startMsg.innerText = '';
   } else if (winner === -1) {
-    topMsg.innerText = `Gray has won!`
+    topMsg.innerText = `Gray has won!`;
+    startMsg.innerText = '';
   }
 }
