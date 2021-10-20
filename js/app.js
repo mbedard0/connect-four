@@ -52,8 +52,6 @@ function render() {
   });
   console.log(winner)
   if (winner !== 0) {
-    console.log(winner)
-    console.log('gameOver in render')
     gameOver();
 }
 }
@@ -72,7 +70,6 @@ function handleClick(evt) {
   if (isGameOver === true) {
     return;
   }
-  console.log(evt.target.id)
   let columnNumber = parseInt(evt.target.id[2]);
   let rowNumber;
   let idxNum = parseInt(evt.target.id.slice(8,10));
@@ -91,6 +88,7 @@ function handleClick(evt) {
     }
   }
   winner = winConditions(rowNumber, columnNumber, idxNum);
+  console.log(rowNumber)
   render()
 }
 
@@ -98,9 +96,13 @@ function getColumn(columnNumber) {
   let arr = [columnNumber, columnNumber + 7, columnNumber + 14, columnNumber + 21, columnNumber + 28, columnNumber + 35];
   return arr;
 }
-
+// bottom row is 35 - 41
 function getRow(rowNumber) {
-  let arr = [rowNumber, rowNumber + 6, rowNumber + 12, rowNumber + 18, rowNumber + 24, rowNumber + 30];
+  console.log('getRow rowNumber')
+  console.log(rowNumber)
+  let arr = [rowNumber*7, (rowNumber*7)+1, (rowNumber*7)+2, (rowNumber*7)+3, (rowNumber*7)+4, (rowNumber*7)+5,(rowNumber*7)+6];
+  console.log('getRow returns this array')
+  console.log(arr)
   return arr;
 }
 
@@ -130,28 +132,15 @@ function getDiagonal2(idxNum, columnNumber, rowNumber) {
   return arr.sort();
 }
 
-function lengthArrValues(arr) {
-  let newArray = [];
-  for (let i = 0; i < arr.length; i++) {
-    newArray.push(boardArr[arr[i]]);
-    console.log('board arr')
-    console.log(board[arr[i]])
-    console.log('array i')
-    console.log([arr[i]])
-    console.log('board')
-    console.log(board)
-  }
-  console.log('arr')
-  console.log(arr)
-  return newArray;
-}
 
 function winConditions(rowNumber, columnNumber, idxNum) {
+  console.log('rowNumber at winCondition')
+  console.log(rowNumber)
   let vertWin = didWin(getColumn(columnNumber));
-  let horizontalWin = didWin(getRow(rowNumber));
-  console.log(horizontalWin)
+  let horizontalWin = didWin(getRow(rowNumber)); // currently doesn't work
+  console.log(didWin(getRow(rowNumber)))
   let diagWin1 = didWin(getDiagonal1(idxNum))
-  let diagWin2 = didWin(getDiagonal2(idxNum))
+  let diagWin2 = didWin(getDiagonal2(idxNum)) // currently doesn't work
   if (vertWin !== 0) {
     isGameOver = true;
     return vertWin
@@ -169,13 +158,21 @@ function winConditions(rowNumber, columnNumber, idxNum) {
   }
 }
 
+function lengthArrValues(arr) {
+  let newArray = [];
+  for (let i = 0; i < arr.length; i++) {
+    newArray.push(boardArr[arr[i]]); // does this just need to be the idx num?
+  }
+  console.log('newArray at lengthArrValues')
+  console.log(newArray)
+  return newArray;
+}
+
 function didWin(arr1) {
   let arr2 = lengthArrValues(arr1);
-  let arr3 = createConsecutiveArray(arr2)
-  console.log('array 2')
+  console.log('arr 2 at didWin')
   console.log(arr2)
-  // console.log('arr3')
-  // console.log(arr3)
+  let arr3 = createConsecutiveArray(arr2)
   if (arr3.includes(4)) {
     return 1;
   } else if (arr3.includes(-4)) {
@@ -185,17 +182,11 @@ function didWin(arr1) {
   }
 }
 
-// take column number
-// get indexes of all circles in that column
-// find the values of the circles at those indexes
-
 function createConsecutiveArray(arr2) {
   let consecArr = [];
   let total = 0;
   for (let i = 0; i < arr2.length; i++) {
     if (i+1 === arr2.length) {
-      console.log('arr2.length')
-      console.log(arr2.length)
       total += arr2[i];
       consecArr.push(total);
     } else if (arr2[i] === arr2[i+1]) {
@@ -205,13 +196,10 @@ function createConsecutiveArray(arr2) {
       total = 0;
     }
   }
-  console.log('consecArr')
-  console.log(consecArr)
   return consecArr;
 }
 
 function gameOver() {
-  console.log('sanity check gameOver function')
   if (winner === 1) {
     topMsg.innerText = `White has won!`;
   } else if (winner === -1) {
