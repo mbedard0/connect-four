@@ -11,7 +11,7 @@ let circles = document.querySelectorAll('.circle')
 
 /*---------------------------- Variables (state) ----------------------------*/
 
-let isGameOver, playerTurn, boardArr, rowNumber, clNumArr
+let isGameOver, playerTurn, boardArr
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -50,6 +50,7 @@ function render() {
       circles[idx].classList.add('gray-circle');
     }
   });
+  // pass function to end game, prevent further pieces from dropping
 }
 
 
@@ -68,8 +69,8 @@ function handleClick(evt) {
     return;
   }
   let columnNumber = parseInt(evt.target.id[2]);
-  rowNumber = parseInt(evt.target.id[4]);
-  clNumArr = getColumn(columnNumber);
+  let rowNumber = parseInt(evt.target.id[4]);
+  let clNumArr = getColumn(columnNumber);
   if (evt.target.id === 'board') {
     return;
   } else {
@@ -104,21 +105,47 @@ function columnArrValues(arr) {
   return newArray;
 }
 
-function winConditions() {
-  if (vertWin(arr) === true) {
+function winConditions(rowNumber, columnNumber) {
+  if (vertWin(columnNumber) === true) {
     isGameOver = true;
-  } else if (horizontalWin(arr) === true) {
+  } else if (horizontalWin(rowNumber) === true) {
     isGameOver = true;
   } else if (diag1Win(arr) === true) {
     isGameOver = true;
   } else if ()
 }
 
-function vertWin(arr) {
-  
-  clNumArr.reduce(function(a, b) {
+function vertWin(columnNumber) {
+  let arr1 = getColumn(columnNumber);
+  let arr2 = columnArrValues(arr1);
+
+  let arr3 = arr2.forEach(function(a,b)  {
     if (a === b) {
-      console.log('hi')
+      return a+b;
     }
-  },0)
+  })
+  if (arr3.includes(4) || arr3.includes(-4)) {
+    return true
+  }
 }
+
+function createConsecutiveArray(arr2) {
+  let consecArr = [];
+  let total = 0
+  for (let i = 0; i < arr2.length; i++) {
+    if (i+1 === arr2.length) {
+      total += arr2[i];
+      consecArr.push(total);
+    } else if (arr2[i] === arr2[i+1]) {
+      total += arr2[i];
+    } else {
+      consecArr.push(total+arr2[i]);
+      total = 0;
+    }
+  }
+  return consecArr;
+}
+
+// [0, 0, 0, 0, 0, 1]
+// [1, 1, 1, 1, -1, -1]
+// [1, -1, 1, -1, 1, 1]
