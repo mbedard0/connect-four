@@ -37,8 +37,6 @@ function init() {
   ];
   isGameOver = false;
   playerTurn = 0;
-  render();
-  
 }
 
 function render() {
@@ -52,11 +50,13 @@ function render() {
       circles[idx].classList.add('gray-circle');
     }
   });
-  if (winner === 1) {}
-  if (winner === -1) {}
-  // pass function to end game, prevent further pieces from dropping
+  console.log(winner)
+  if (winner !== 0) {
+    console.log(winner)
+    console.log('gameOver in render')
+    gameOver();
 }
-
+}
 
 function handleStartClick(evt) {
   startMsg.innerHTML = `<h3>Choose the column you'd like to drop your piece down.</h3><br><p>First to get four chips in a row wins!</p>`;
@@ -133,14 +133,23 @@ function getDiagonal2(idxNum, columnNumber, rowNumber) {
 function lengthArrValues(arr) {
   let newArray = [];
   for (let i = 0; i < arr.length; i++) {
-    newArray.push(board[arr[i]]);
+    newArray.push(boardArr[arr[i]]);
+    console.log('board arr')
+    console.log(board[arr[i]])
+    console.log('array i')
+    console.log([arr[i]])
+    console.log('board')
+    console.log(board)
   }
+  console.log('arr')
+  console.log(arr)
   return newArray;
 }
 
 function winConditions(rowNumber, columnNumber, idxNum) {
   let vertWin = didWin(getColumn(columnNumber));
   let horizontalWin = didWin(getRow(rowNumber));
+  console.log(horizontalWin)
   let diagWin1 = didWin(getDiagonal1(idxNum))
   let diagWin2 = didWin(getDiagonal2(idxNum))
   if (vertWin !== 0) {
@@ -163,6 +172,10 @@ function winConditions(rowNumber, columnNumber, idxNum) {
 function didWin(arr1) {
   let arr2 = lengthArrValues(arr1);
   let arr3 = createConsecutiveArray(arr2)
+  console.log('array 2')
+  console.log(arr2)
+  // console.log('arr3')
+  // console.log(arr3)
   if (arr3.includes(4)) {
     return 1;
   } else if (arr3.includes(-4)) {
@@ -181,6 +194,8 @@ function createConsecutiveArray(arr2) {
   let total = 0;
   for (let i = 0; i < arr2.length; i++) {
     if (i+1 === arr2.length) {
+      console.log('arr2.length')
+      console.log(arr2.length)
       total += arr2[i];
       consecArr.push(total);
     } else if (arr2[i] === arr2[i+1]) {
@@ -190,5 +205,16 @@ function createConsecutiveArray(arr2) {
       total = 0;
     }
   }
+  console.log('consecArr')
+  console.log(consecArr)
   return consecArr;
+}
+
+function gameOver() {
+  console.log('sanity check gameOver function')
+  if (winner === 1) {
+    topMsg.innerText = `White has won!`;
+  } else if (winner === -1) {
+    topMsg.innerText = `Gray has won!`
+  }
 }
