@@ -117,69 +117,78 @@ function getDiagonal1(idxNum, columnNumber, rowNumber) {
   return arr.sort();
 }
 
-// [0, 0, 0, 0, 0, 1]
-// [1, 1, 1, 1, -1, -1]
-// [1, -1, 1, -1, 1, 1]
+function getDiagonal2(idxNum, columnNumber, rowNumber) {
+  let arr = [];
+  let height = 5 - rowNumber;
+  let colToRight = 6 - columnNumber; 
+  for (let i = 1; i <= Math.min(columnNumber,rowNumber); i++) {
+    arr.push(idxNum - (8*i));
+  }
+  for (let i = 0; i <= Math.min(height,colToRight); i++) {
+    arr.push(idxNum + (8*i));
+  } 
+  return arr.sort();
+}
 
-// function lengthArrValues(arr) {
-//   let newArray = [];
-//   for (let i = 0; i < arr.length; i++) {
-//     newArray.push(board[arr[i]]);
-//   }
-//   return newArray;
-// }
+function lengthArrValues(arr) {
+  let newArray = [];
+  for (let i = 0; i < arr.length; i++) {
+    newArray.push(board[arr[i]]);
+  }
+  return newArray;
+}
 
-// function winConditions(rowNumber, columnNumber, idxNum) {
-//   let vertWin = didWin(getColumn(columnNumber));
-//   let horizontalWin = didWin(getRow(rowNumber));
-//   let diagWin1 = didWin(getDiagonal1(idxNum))
-//   let diagWin2 = didWin(getDiagonal2(idxNum))
-//   if (vertWin !== 0) {
-//     isGameOver = true;
-//     return vertWin
-//   } else if (horizontalWin !== 0) {
-//     isGameOver = true;
-//     return horizontalWin
-//   } else if (diagWin1 !== 0) {
-//     isGameOver = true;
-//     return diagWin1
-//   } else if (diagWin2 !== 0) {
-//     isGameOver = true;
-//     return diagWin2
-//   } else {
-//     return 0
-//   }
-// }
+function winConditions(rowNumber, columnNumber, idxNum) {
+  let vertWin = didWin(getColumn(columnNumber));
+  let horizontalWin = didWin(getRow(rowNumber));
+  let diagWin1 = didWin(getDiagonal1(idxNum))
+  let diagWin2 = didWin(getDiagonal2(idxNum))
+  if (vertWin !== 0) {
+    isGameOver = true;
+    return vertWin
+  } else if (horizontalWin !== 0) {
+    isGameOver = true;
+    return horizontalWin
+  } else if (diagWin1 !== 0) {
+    isGameOver = true;
+    return diagWin1
+  } else if (diagWin2 !== 0) {
+    isGameOver = true;
+    return diagWin2
+  } else {
+    return 0
+  }
+}
 
-// function didWin(arr1) {
-//   let arr2 = lengthArrValues(arr1);
-//   let arr3 = createConsecutiveArray(arr2)
-//   if (arr3.includes(4)) {
-//     return 1;
-//   } else if (arr3.includes(-4)) {
-//     return -1;
-//   } else {
-//     return 0
-//   }
-// }
+function didWin(arr1) {
+  let arr2 = lengthArrValues(arr1);
+  let arr3 = createConsecutiveArray(arr2)
+  if (arr3.includes(4)) {
+    return 1;
+  } else if (arr3.includes(-4)) {
+    return -1;
+  } else {
+    return 0
+  }
+}
 
 // take column number
 // get indexes of all circles in that column
 // find the values of the circles at those indexes
 
-// function createConsecutiveArray(arr2) {
-//   let consecArr = [];
-//   let total = 0;
-//   for (let i = 0; i < arr2.length; i++) {
-//     if (i+1 === arr2.length) {
-//       total += arr2[i];
-//       consecArr.push(total);
-//     } else if (arr2[i] === arr2[i+1]) {
-//       total += arr2[i];
-//     } else {
-//       consecArr.push(total+arr2[i]);
-//       total = 0;
-//     }
-//   }
-//   return consecArr;
-// }
+function createConsecutiveArray(arr2) {
+  let consecArr = [];
+  let total = 0;
+  for (let i = 0; i < arr2.length; i++) {
+    if (i+1 === arr2.length) {
+      total += arr2[i];
+      consecArr.push(total);
+    } else if (arr2[i] === arr2[i+1]) {
+      total += arr2[i];
+    } else {
+      consecArr.push(total+arr2[i]);
+      total = 0;
+    }
+  }
+  return consecArr;
+}
