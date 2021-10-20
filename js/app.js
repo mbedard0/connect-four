@@ -83,7 +83,7 @@ function handleClick(evt) {
       }
     }
   }
-  isGameOver = winConditions(rowNumber, columnNumber);
+  winConditions(rowNumber, columnNumber);
   render()
 }
 
@@ -106,7 +106,7 @@ function columnArrValues(arr) {
 }
 
 function winConditions(rowNumber, columnNumber) {
-  if (vertWin(columnNumber) === true) {
+  if (vertWin(columnNumber) !== 0) {
     isGameOver = true;
   } else if (horizontalWin(rowNumber) === true) {
     isGameOver = true;
@@ -118,20 +118,22 @@ function winConditions(rowNumber, columnNumber) {
 function vertWin(columnNumber) {
   let arr1 = getColumn(columnNumber);
   let arr2 = columnArrValues(arr1);
-
-  let arr3 = arr2.forEach(function(a,b)  {
-    if (a === b) {
-      return a+b;
-    }
-  })
-  if (arr3.includes(4) || arr3.includes(-4)) {
-    return true
+// take column number
+// get indexes of all circles in that column
+// find the values of the circles at those indexes
+  let arr3 = createConsecutiveArray(arr2)
+  if (arr3.includes(4)) {
+    return 1;
+  } else if (arr3.includes(-4)) {
+    return -1;
+  } else {
+    return 0
   }
 }
 
 function createConsecutiveArray(arr2) {
   let consecArr = [];
-  let total = 0
+  let total = 0;
   for (let i = 0; i < arr2.length; i++) {
     if (i+1 === arr2.length) {
       total += arr2[i];
