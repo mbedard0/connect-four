@@ -75,7 +75,7 @@ function handleStartClick(evt) { // establishes which player should start and ge
 }
 
 function handleClick(evt) { // this function is called upon clicks to the board
-  if (isGameOver === true) {
+  if (isGameOver === true) { // do nothing if the game has been declared over
     return;
   }
   let columnNumber = parseInt(evt.target.id[2]); // takes the row number from the html id
@@ -103,7 +103,12 @@ function winConditions(rowNumber, columnNumber, idxNum) { // called in handleCli
   let horizontalWin = didWin(getRow(rowNumber));
   let diagWin1 = didWin(getDiagonal1(idxNum, columnNumber, rowNumber)) 
   let diagWin2 = didWin(getDiagonal2(idxNum, columnNumber, rowNumber))
-  if (vertWin !== 0) {
+  let boardValueSum = boardArr.reduce((acc, val) => Math.abs(acc) + Math.abs(val) ,0)
+  if (boardValueSum === 42) {
+    isGameOver = true;
+    return 'tie';
+  }
+  else if (vertWin !== 0) {
     isGameOver = true;
     return vertWin
   } else if (horizontalWin !== 0) {
@@ -116,8 +121,9 @@ function winConditions(rowNumber, columnNumber, idxNum) { // called in handleCli
     isGameOver = true;
     return diagWin2
   } else {
-    return 0
+    return 0  
   }
+
 }
 
 function didWin(arr1) { // takes an array as a parameter (of circle indexes) and then converts it to a reduced array of values. then it evaluates those arrays to see if a win condition is met
@@ -173,8 +179,6 @@ function lengthArrValues(arr) { // returns the value of the board array values a
   for (let i = 0; i < arr.length; i++) {
     newArray.push(boardArr[arr[i]]); 
   }
-  console.log('lengthArrValues')
-  console.log(lengthArrValues)
   return newArray;
 }
 
@@ -202,5 +206,7 @@ function gameOver() { // called after render. this function stops the game if a 
   } else if (winner === -1) {
     topMsg.innerText = `Gray has won!`;
     startMsg.innerText = '';
+  } else if (winner === 'tie') {
+    topMsg.innerText = `It's a tie! Press reset to start a new game.`
   }
 }
