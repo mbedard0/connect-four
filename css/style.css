@@ -9,27 +9,23 @@ body {
   grid-template-rows: 25% 70% 5%;
 }
 
-.columns {
-  display: grid;
-  grid-template-columns: repeat(7, 10vmin);
-  grid-gap: 0vmin;
-  justify-content: center;
-  height: 80px;
-}
-
 .flex-container {
-	display: flex;
+	display: grid;
 	align-items: center;
 	justify-content: center;
 }
 
 section#board {
-  background-color: lightskyblue;
   display: grid;
   grid-template-rows: repeat(6, 10vmin);
   grid-template-columns: repeat(7, 10vmin);
   grid-gap: 0vmin;
   border-radius: 20px;
+  margin-top: 10px;
+  background-color: lightblue;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 section#startBtns {
@@ -37,6 +33,7 @@ section#startBtns {
   text-align: center;
   margin-top: 30px;
 }
+
 
 div.circle {
   background-color: white;
@@ -72,6 +69,6 @@ h3 {
 }
 
 .btn {
-justify-content: center;
-text-align: center;
+  justify-content: center;
+  text-align: center;
 }
