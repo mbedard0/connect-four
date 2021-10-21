@@ -52,6 +52,11 @@ function render() { // adds/removes css depending of values of the board array
       circles[idx].classList.add('gray-circle');
     }
   });
+  if (playerTurn === 1) {
+    topMsg.innerText = `It's white's turn.`
+  } else if (playerTurn === -1) {
+    topMsg.innerText = `It's gray's turn.`
+  }
   if (winner !== 0) {
     gameOver();
 }
@@ -62,8 +67,10 @@ function handleStartClick(evt) { // establishes which player should start and ge
   start.style.display = 'none';
   if (evt.target.id === 'whiteStartBtn') {
     playerTurn = 1;
+    topMsg.innerText = 'White picks first!';
   } else if (evt.target.id === 'grayStartBtn') {
     playerTurn = -1;
+    topMsg.innerText = 'Gray picks first!';
   }
 }
 
@@ -91,46 +98,8 @@ function handleClick(evt) { // this function is called upon clicks to the board
   render()
 }
 
-function getColumn(columnNumber) { // takes the column number and returns an array of the circle index numbers in that column
-  let arr = [columnNumber, columnNumber + 7, columnNumber + 14, columnNumber + 21, columnNumber + 28, columnNumber + 35];
-  return arr;
-}
-
-function getRow(rowNumber) { // takes the row number and returns an array of the circle index numbers in that row
-  console.log('rowNum')
-  console.log(rowNumber)
-  let arr = [rowNumber*7, (rowNumber*7)+1, (rowNumber*7)+2, (rowNumber*7)+3, (rowNumber*7)+4, (rowNumber*7)+5,(rowNumber*7)+6];
-  return arr;
-}
-
-function getDiagonal1(idxNum, columnNumber, rowNumber) { // takes the index number, row number, and column number of a circle and returns an array of the circle index numbers up and to the right and down and to the left
-  let arr = [];
-  let height = 5 - rowNumber;
-  let colToRight = 6 - columnNumber;
-  for (let i = 1; i <= Math.min(rowNumber,colToRight); i++) {
-    arr.push(idxNum - (6*i));
-  } 
-  for (let i = 0; i <= Math.min(height,columnNumber); i++) {
-    arr.push(idxNum + (6*i));
-  }
-  return arr.sort();
-}
-
-function getDiagonal2(idxNum, columnNumber, rowNumber) { // takes the index number, row number, and column number of a circle and returns an array of the circle index numbers up and to the left and down and to the right
-  let arr = [];
-  let height = 5 - rowNumber;
-  let colToRight = 6 - columnNumber; 
-  for (let i = 1; i <= Math.min(columnNumber,rowNumber); i++) {
-    arr.push(idxNum - (8*i));
-  }
-  for (let i = 0; i <= Math.min(height,colToRight); i++) {
-    arr.push(idxNum + (8*i));
-  } 
-  return arr.sort();
-}
-
 function winConditions(rowNumber, columnNumber, idxNum) { // called in handleClick function. win conditions return 1, -1, or 0
-  let vertWin = didWin(getColumn(columnNumber)); // each of the four possible win conditions are called via didWin that takes an array as a parameter
+  let vertWin = didWin(getColumn(columnNumber)); // each of the four possible win conditions are called via didWin that takes an array of indexes as a parameter
   let horizontalWin = didWin(getRow(rowNumber));
   let diagWin1 = didWin(getDiagonal1(idxNum, columnNumber, rowNumber)) 
   let diagWin2 = didWin(getDiagonal2(idxNum, columnNumber, rowNumber))
@@ -163,6 +132,42 @@ function didWin(arr1) { // takes an array as a parameter (of circle indexes) and
   }
 }
 
+function getColumn(columnNumber) { // takes the column number and returns an array of the circle index numbers in that column
+  let arr = [columnNumber, columnNumber + 7, columnNumber + 14, columnNumber + 21, columnNumber + 28, columnNumber + 35];
+  return arr;
+}
+
+function getRow(rowNumber) { // takes the row number and returns an array of the circle index numbers in that row
+  let arr = [rowNumber*7, (rowNumber*7)+1, (rowNumber*7)+2, (rowNumber*7)+3, (rowNumber*7)+4, (rowNumber*7)+5,(rowNumber*7)+6];
+  return arr;
+}
+
+function getDiagonal1(idxNum, columnNumber, rowNumber) { // takes the index number, row number, and column number of a circle and returns an array of the circle index numbers up and to the right and down and to the left
+  let arr = [];
+  let height = 5 - rowNumber;
+  let colToRight = 6 - columnNumber;
+  for (let i = 1; i <= Math.min(rowNumber,colToRight); i++) {
+    arr.push(idxNum - (6*i));
+  } 
+  for (let i = 0; i <= Math.min(height,columnNumber); i++) {
+    arr.push(idxNum + (6*i));
+  }
+  return arr.sort();
+}
+
+function getDiagonal2(idxNum, columnNumber, rowNumber) { // takes the index number, row number, and column number of a circle and returns an array of the circle index numbers up and to the left and down and to the right
+  let arr = [];
+  let height = 5 - rowNumber;
+  let colToRight = 6 - columnNumber; 
+  for (let i = 1; i <= Math.min(columnNumber,rowNumber); i++) {
+    arr.push(idxNum - (8*i));
+  }
+  for (let i = 0; i <= Math.min(height,colToRight); i++) {
+    arr.push(idxNum + (8*i));
+  } 
+  return arr.sort();
+}
+
 function lengthArrValues(arr) { // returns the value of the board array values at the index numbers specified in the array taken as a parameter
   let newArray = [];
   for (let i = 0; i < arr.length; i++) {
@@ -187,8 +192,6 @@ function createConsecutiveArray(arr2) { // sums consecutive numbers that are equ
       total = 0;
     }
   }
-  console.log('consecArr')
-  console.log(consecArr)
   return consecArr;
 }
 
