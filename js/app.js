@@ -24,7 +24,7 @@ board.addEventListener('click', handleClick)
 /*-------------------------------- Functions --------------------------------*/
 init()
 
-function init() {
+function init() { // initializes and resets the board.
   startMsg.innerText = 'Start the game by picking a color.';
   start.style.display = 'block';
   boardArr = [
@@ -41,7 +41,7 @@ function init() {
   topMsg.innerText = '';
 }
 
-function render() {
+function render() { // adds/removes css depending of values of the board array
   boardArr.forEach((item, idx) => {
     if (item === 0) {
       circles[idx].classList.remove('white-circle');
@@ -57,7 +57,7 @@ function render() {
 }
 }
 
-function handleStartClick(evt) {
+function handleStartClick(evt) { // establishes which player should start and generates high level messages
   startMsg.innerHTML = `<h3>Choose the column you'd like to drop your piece down.</h3><br><p>First to get four chips in a row wins!</p>`;
   start.style.display = 'none';
   if (evt.target.id === 'whiteStartBtn') {
@@ -67,53 +67,43 @@ function handleStartClick(evt) {
   }
 }
 
-function handleClick(evt) {
+function handleClick(evt) { // this function is called upon clicks to the board
   if (isGameOver === true) {
     return;
   }
-  let columnNumber = parseInt(evt.target.id[2]);
+  let columnNumber = parseInt(evt.target.id[2]); // takes the row number from the html id
   let rowNumber, idxNum;
-  let clNumArr = getColumn(columnNumber);
-  if (evt.target.id === 'board') {
+  let clNumArr = getColumn(columnNumber); // calls a function that returns an array of indexes for all the circles that were in the column selected
+  if (evt.target.id === 'board') { // if the player clicks the board, do nothing
     return;
-  } else {
+  } else { // this establishes the lowest number in the column and then changes its value
     for (let i = clNumArr.length - 1; i >= 0; i--) {
       if (boardArr[clNumArr[i]] === 0) {
         idxNum = (clNumArr[i])
         rowNumber = i;
         boardArr[clNumArr[i]] = playerTurn;
-        console.log('playerTurn')
-        console.log(playerTurn)
         playerTurn = playerTurn * -1;
-        console.log(boardArr)
         break;
       }
     }
   }
-  winner = winConditions(rowNumber, columnNumber, idxNum);
+  winner = winConditions(rowNumber, columnNumber, idxNum); // evaluates whether a win condition is met (will return 0, 1 or -1)
   render()
 }
 
-function getColumn(columnNumber) {
+function getColumn(columnNumber) { // takes the column number and returns an array of the circle index numbers in that column
   let arr = [columnNumber, columnNumber + 7, columnNumber + 14, columnNumber + 21, columnNumber + 28, columnNumber + 35];
   return arr;
 }
 
-function getRow(rowNumber) {
+function getRow(rowNumber) { // takes the row number and returns an array of the circle index numbers in that row
   console.log('rowNum')
   console.log(rowNumber)
   let arr = [rowNumber*7, (rowNumber*7)+1, (rowNumber*7)+2, (rowNumber*7)+3, (rowNumber*7)+4, (rowNumber*7)+5,(rowNumber*7)+6];
   return arr;
 }
 
-function getDiagonal1(idxNum, columnNumber, rowNumber) {
-  // idxNum is returning what's being clicked on, but what I want is the one it drops down to --> which I calculate somewhere else...
-  console.log('idxNum')
-  console.log(idxNum)
-  console.log('columnNum')
-  console.log(columnNumber)
-  console.log('rowNumber')
-  console.log(rowNumber)
+function getDiagonal1(idxNum, columnNumber, rowNumber) { // takes the index number, row number, and column number of a circle and returns an array of the circle index numbers up and to the right and down and to the left
   let arr = [];
   let height = 5 - rowNumber;
   let colToRight = 6 - columnNumber;
@@ -126,7 +116,7 @@ function getDiagonal1(idxNum, columnNumber, rowNumber) {
   return arr.sort();
 }
 
-function getDiagonal2(idxNum, columnNumber, rowNumber) {
+function getDiagonal2(idxNum, columnNumber, rowNumber) { // takes the index number, row number, and column number of a circle and returns an array of the circle index numbers up and to the left and down and to the right
   let arr = [];
   let height = 5 - rowNumber;
   let colToRight = 6 - columnNumber; 
@@ -139,12 +129,11 @@ function getDiagonal2(idxNum, columnNumber, rowNumber) {
   return arr.sort();
 }
 
-
-function winConditions(rowNumber, columnNumber, idxNum) {
-  let vertWin = didWin(getColumn(columnNumber));
+function winConditions(rowNumber, columnNumber, idxNum) { // called in handleClick function. win conditions return 1, -1, or 0
+  let vertWin = didWin(getColumn(columnNumber)); // each of the four possible win conditions are called via didWin that takes an array as a parameter
   let horizontalWin = didWin(getRow(rowNumber));
-  let diagWin1 = didWin(getDiagonal1(idxNum, columnNumber, rowNumber)) // currently doesn't work
-  let diagWin2 = didWin(getDiagonal2(idxNum, columnNumber, rowNumber)) // currently doesn't work
+  let diagWin1 = didWin(getDiagonal1(idxNum, columnNumber, rowNumber)) 
+  let diagWin2 = didWin(getDiagonal2(idxNum, columnNumber, rowNumber))
   if (vertWin !== 0) {
     isGameOver = true;
     return vertWin
@@ -162,20 +151,8 @@ function winConditions(rowNumber, columnNumber, idxNum) {
   }
 }
 
-function lengthArrValues(arr) {
-  let newArray = [];
-  for (let i = 0; i < arr.length; i++) {
-    newArray.push(boardArr[arr[i]]); 
-  }
-  console.log('newArray at lengthArrValues')
-  console.log(newArray)
-  return newArray;
-}
-
-function didWin(arr1) {
+function didWin(arr1) { // takes an array as a parameter (of circle indexes) and then converts it to a reduced array of values. then it evaluates those arrays to see if a win condition is met
   let arr2 = lengthArrValues(arr1);
-  console.log('arr 2 at didWin')
-  console.log(arr2)
   let arr3 = createConsecutiveArray(arr2)
   if (arr3.includes(4)) {
     return 1;
@@ -186,7 +163,17 @@ function didWin(arr1) {
   }
 }
 
-function createConsecutiveArray(arr2) {
+function lengthArrValues(arr) { // returns the value of the board array values at the index numbers specified in the array taken as a parameter
+  let newArray = [];
+  for (let i = 0; i < arr.length; i++) {
+    newArray.push(boardArr[arr[i]]); 
+  }
+  console.log('lengthArrValues')
+  console.log(lengthArrValues)
+  return newArray;
+}
+
+function createConsecutiveArray(arr2) { // sums consecutive numbers that are equal to each other e.g. [0, 0, 1, 1, -1] becomes [0, 2, -1]
   let consecArr = [];
   let total = 0;
   for (let i = 0; i < arr2.length; i++) {
@@ -200,10 +187,12 @@ function createConsecutiveArray(arr2) {
       total = 0;
     }
   }
+  console.log('consecArr')
+  console.log(consecArr)
   return consecArr;
 }
 
-function gameOver() {
+function gameOver() { // called after render. this function stops the game if a win condition is met
   if (winner === 1) {
     topMsg.innerText = `White has won!`;
     startMsg.innerText = '';
