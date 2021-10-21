@@ -58,7 +58,7 @@ function render() { // adds/removes css depending of values of the board array
   }
   if (winner !== 0) {
     gameOver();
-}
+  }
 }
 
 function handleStartClick(evt) { // establishes which player should start and generates messages about winning
@@ -103,9 +103,9 @@ function handleClick(evt) { // this function is called upon clicks to the board
 function winConditions(rowNumber, columnNumber, idxNum) { // called in handleClick function. win conditions return 1, -1, 0, or tie
   let vertWin = didWin(getColumn(columnNumber)); // each of the four possible win conditions are called via didWin that takes an array of indexes as a parameter
   let horizontalWin = didWin(getRow(rowNumber));
-  let diagWin1 = didWin(getDiagonal1(idxNum, columnNumber, rowNumber)) 
+  let diagWin1 = didWin(getDiagonal1(idxNum, columnNumber, rowNumber))
   let diagWin2 = didWin(getDiagonal2(idxNum, columnNumber, rowNumber))
-  let boardValueSum = boardArr.reduce((acc, val) => Math.abs(acc) + Math.abs(val) ,0) // if the absolute sum of all circles are filled, the game will tie
+  let boardValueSum = boardArr.reduce((acc, val) => Math.abs(acc) + Math.abs(val), 0) // if the absolute sum of all circles are filled, the game will tie
   if (boardValueSum === 42) {
     isGameOver = true;
     return 'tie';
@@ -123,7 +123,7 @@ function winConditions(rowNumber, columnNumber, idxNum) { // called in handleCli
     isGameOver = true;
     return diagWin2
   } else {
-    return 0  
+    return 0
   }
 }
 
@@ -145,7 +145,7 @@ function getColumn(columnNumber) { // takes the column number and returns an arr
 }
 
 function getRow(rowNumber) { // takes the row number and returns an array of the circle index numbers in that row
-  let arr = [rowNumber*7, (rowNumber*7)+1, (rowNumber*7)+2, (rowNumber*7)+3, (rowNumber*7)+4, (rowNumber*7)+5,(rowNumber*7)+6];
+  let arr = [rowNumber * 7, (rowNumber * 7) + 1, (rowNumber * 7) + 2, (rowNumber * 7) + 3, (rowNumber * 7) + 4, (rowNumber * 7) + 5, (rowNumber * 7) + 6];
   return arr;
 }
 
@@ -153,32 +153,32 @@ function getDiagonal1(idxNum, columnNumber, rowNumber) { // takes the index numb
   let arr = [];
   let height = 5 - rowNumber;
   let colToRight = 6 - columnNumber;
-  for (let i = 1; i <= Math.min(rowNumber,colToRight); i++) {
-    arr.push(idxNum - (6*i));
-  } 
-  for (let i = 0; i <= Math.min(height,columnNumber); i++) {
-    arr.push(idxNum + (6*i));
+  for (let i = 1; i <= Math.min(rowNumber, colToRight); i++) {
+    arr.push(idxNum - (6 * i));
   }
-  return arr.sort(function (a, b) {  return a - b;  });
+  for (let i = 0; i <= Math.min(height, columnNumber); i++) {
+    arr.push(idxNum + (6 * i));
+  }
+  return arr.sort(function (a, b) { return a - b; });
 }
 
 function getDiagonal2(idxNum, columnNumber, rowNumber) { // takes the index number, row number, and column number of a circle and returns an array of the circle index numbers up and to the left and down and to the right
   let arr = [];
   let height = 5 - rowNumber;
-  let colToRight = 6 - columnNumber; 
-  for (let i = 1; i <= Math.min(columnNumber,rowNumber); i++) {
-    arr.push(idxNum - (8*i));
+  let colToRight = 6 - columnNumber;
+  for (let i = 1; i <= Math.min(columnNumber, rowNumber); i++) {
+    arr.push(idxNum - (8 * i));
   }
-  for (let i = 0; i <= Math.min(height,colToRight); i++) {
-    arr.push(idxNum + (8*i));
-  } 
-  return arr.sort(function (a, b) {  return a - b;  });
+  for (let i = 0; i <= Math.min(height, colToRight); i++) {
+    arr.push(idxNum + (8 * i));
+  }
+  return arr.sort(function (a, b) { return a - b; });
 }
 
 function lengthArrValues(arr) { // returns the value of the board array values at the index numbers specified in the array taken as a parameter
   let newArray = [];
   for (let i = 0; i < arr.length; i++) {
-    newArray.push(boardArr[arr[i]]); 
+    newArray.push(boardArr[arr[i]]);
   }
   return newArray;
 }
@@ -187,13 +187,13 @@ function createConsecutiveArray(arr2) { // sums consecutive numbers that are equ
   let consecArr = [];
   let total = 0;
   for (let i = 0; i < arr2.length; i++) {
-    if (i+1 === arr2.length) {
+    if (i + 1 === arr2.length) {
       total += arr2[i];
       consecArr.push(total);
-    } else if (arr2[i] === arr2[i+1]) {
+    } else if (arr2[i] === arr2[i + 1]) {
       total += arr2[i];
     } else {
-      consecArr.push(total+arr2[i]);
+      consecArr.push(total + arr2[i]);
       total = 0;
     }
   }
