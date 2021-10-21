@@ -43,18 +43,18 @@ function init() { // initializes and resets the board
 function render() { // adds/removes css depending of values of the board array
   boardArr.forEach((item, idx) => {
     if (item === 0) {
-      circles[idx].classList.remove('white-circle');
-      circles[idx].classList.remove('gray-circle');
+      circles[idx].classList.remove('yellow-circle');
+      circles[idx].classList.remove('red-circle');
     } else if (item === 1) {
-      circles[idx].classList.add('white-circle');
+      circles[idx].classList.add('yellow-circle');
     } else if (item === -1) {
-      circles[idx].classList.add('gray-circle');
+      circles[idx].classList.add('red-circle');
     }
   });
   if (playerTurn === 1) {
-    topMsg.innerText = `It's white's turn.`
+    topMsg.innerText = `It's yellow's turn.`
   } else if (playerTurn === -1) {
-    topMsg.innerText = `It's gray's turn.`
+    topMsg.innerText = `It's red's turn.`
   }
   if (winner !== 0) {
     gameOver();
@@ -62,14 +62,14 @@ function render() { // adds/removes css depending of values of the board array
 }
 
 function handleStartClick(evt) { // establishes which player should start and generates messages about winning
-  startMsg.innerHTML = `Choose the column you'd like to drop your piece down.<br>First to get four chips in a row wins!`;
+  startMsg.innerHTML = `<p>Choose the column you'd like to drop your piece down. First to get four chips in a row wins!</p>`;
   start.style.display = 'none';
-  if (evt.target.id === 'whiteStartBtn') {
+  if (evt.target.id === 'ylwStartBtn') {
     playerTurn = 1;
-    topMsg.innerText = 'White picks first!';
-  } else if (evt.target.id === 'grayStartBtn') {
+    topMsg.innerText = 'Yellow picks first!';
+  } else if (evt.target.id === 'redStartBtn') {
     playerTurn = -1;
-    topMsg.innerText = 'Gray picks first!';
+    topMsg.innerText = 'Red picks first!';
   }
   reset.style.visibility = 'visible';
 }
@@ -200,10 +200,10 @@ function createConsecutiveArray(arr2) { // sums consecutive numbers that are equ
 
 function gameOver() { // called after render. this function stops the game if a win condition is met
   if (winner === 1) {
-    topMsg.innerText = `White wins!`;
+    topMsg.innerText = `Yellow wins!`;
     startMsg.innerText = '';
   } else if (winner === -1) {
-    topMsg.innerText = `Gray wins!`;
+    topMsg.innerText = `Red wins!`;
     startMsg.innerText = '';
   } else if (winner === 'tie') {
     topMsg.innerText = `It's a tie! Press reset to start a new game.`

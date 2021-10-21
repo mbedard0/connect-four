@@ -6,7 +6,8 @@ body {
   margin: 0;
   height: 90vh;
   display: grid;
-  grid-template-columns: 10% 80% 10%;
+  grid-template-columns: 15% 70% 15%;
+  grid-template-rows: 25% 70% 5%;
 }
 
 .columns {
@@ -24,20 +25,22 @@ body {
 }
 
 section#board {
-  background-color: white;
+  background-color: darkblue;
   display: grid;
   grid-template-rows: repeat(6, 10vmin);
   grid-template-columns: repeat(7, 10vmin);
   grid-gap: 0vmin;
+  border-radius: 20px;
 }
 
 section#startBtns {
   justify-content: center;
   text-align: center;
+  margin-top: 30px;
 }
 
 div.circle {
-  background-color: lightblue;
+  background-color: white;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -46,27 +49,31 @@ div.circle {
   margin-left: 20px;
 }
 
-.white-circle {
-  background-color: white !important;
+.yellow-circle {
+  background-color: yellow !important;
 }
 
-.gray-circle {
-  background-color: darkgray !important;
+.red-circle {
+  background-color: red !important;
 }
 
-h2 {
+p {
 text-align: center;
 padding: 10px 0px;
 }
 
 h1 {
 text-align: center;
+padding: 10px 0px 10px 0px;
+}
+
+h3 {
+  text-align: center;
 }
 
 .btn {
 justify-content: center;
 text-align: center;
-margin: 10px 0px 10px 0px;
 }
 
 /* #resetBtn {
