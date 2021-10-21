@@ -11,9 +11,7 @@ let circles = document.querySelectorAll('.circle')
 
 /*---------------------------- Variables (state) ----------------------------*/
 
-let isGameOver, playerTurn, boardArr
-
-let winner
+let isGameOver, playerTurn, boardArr, winner
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -24,8 +22,7 @@ board.addEventListener('click', handleClick)
 /*-------------------------------- Functions --------------------------------*/
 init()
 
-function init() { // initializes and resets the board.
-  startMsg.innerText = 'Start the game by picking a color.';
+function init() { // initializes and resets the board
   start.style.display = 'block';
   boardArr = [
     0, 0, 0, 0, 0, 0, 0,
@@ -38,6 +35,7 @@ function init() { // initializes and resets the board.
   isGameOver = false;
   playerTurn = 0;
   render();
+  startMsg.innerText = `Start the game by picking a color.`;
   topMsg.innerText = '';
 }
 
@@ -62,7 +60,7 @@ function render() { // adds/removes css depending of values of the board array
 }
 }
 
-function handleStartClick(evt) { // establishes which player should start and generates high level messages
+function handleStartClick(evt) { // establishes which player should start and generates messages about winning
   startMsg.innerHTML = `<h3>Choose the column you'd like to drop your piece down.</h3><br><p>First to get four chips in a row wins!</p>`;
   start.style.display = 'none';
   if (evt.target.id === 'whiteStartBtn') {
@@ -94,16 +92,16 @@ function handleClick(evt) { // this function is called upon clicks to the board
       }
     }
   }
-  winner = winConditions(rowNumber, columnNumber, idxNum); // evaluates whether a win condition is met (will return 0, 1 or -1)
+  winner = winConditions(rowNumber, columnNumber, idxNum); // evaluates whether a win condition is met (will return 0, 1, -1 or tie)
   render()
 }
 
-function winConditions(rowNumber, columnNumber, idxNum) { // called in handleClick function. win conditions return 1, -1, or 0
+function winConditions(rowNumber, columnNumber, idxNum) { // called in handleClick function. win conditions return 1, -1, 0, or tie
   let vertWin = didWin(getColumn(columnNumber)); // each of the four possible win conditions are called via didWin that takes an array of indexes as a parameter
   let horizontalWin = didWin(getRow(rowNumber));
   let diagWin1 = didWin(getDiagonal1(idxNum, columnNumber, rowNumber)) 
   let diagWin2 = didWin(getDiagonal2(idxNum, columnNumber, rowNumber))
-  let boardValueSum = boardArr.reduce((acc, val) => Math.abs(acc) + Math.abs(val) ,0)
+  let boardValueSum = boardArr.reduce((acc, val) => Math.abs(acc) + Math.abs(val) ,0) // if the absolute sum of all circles are filled, the game will tie
   if (boardValueSum === 42) {
     isGameOver = true;
     return 'tie';
@@ -123,7 +121,6 @@ function winConditions(rowNumber, columnNumber, idxNum) { // called in handleCli
   } else {
     return 0  
   }
-
 }
 
 function didWin(arr1) { // takes an array as a parameter (of circle indexes) and then converts it to a reduced array of values. then it evaluates those arrays to see if a win condition is met
@@ -201,10 +198,10 @@ function createConsecutiveArray(arr2) { // sums consecutive numbers that are equ
 
 function gameOver() { // called after render. this function stops the game if a win condition is met
   if (winner === 1) {
-    topMsg.innerText = `White has won!`;
+    topMsg.innerText = `White wins!`;
     startMsg.innerText = '';
   } else if (winner === -1) {
-    topMsg.innerText = `Gray has won!`;
+    topMsg.innerText = `Gray wins!`;
     startMsg.innerText = '';
   } else if (winner === 'tie') {
     topMsg.innerText = `It's a tie! Press reset to start a new game.`
