@@ -24,11 +24,11 @@ body {
 }
 
 section#board {
+  background-color: white;
   display: grid;
   grid-template-rows: repeat(6, 10vmin);
   grid-template-columns: repeat(7, 10vmin);
   grid-gap: 0vmin;
-  justify-content: center;
 }
 
 section#startBtns {
@@ -39,12 +39,11 @@ section#startBtns {
 div.circle {
   background-color: lightblue;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border: 2px solid gray;
   font-size: 8vmin;
-  text-align: center;
-  vertical-align: middle;
+  margin-left: 20px;
 }
 
 .white-circle {

@@ -37,6 +37,7 @@ function init() { // initializes and resets the board
   render();
   startMsg.innerText = `Start the game by picking a color.`;
   topMsg.innerText = '';
+  reset.style.visibility = 'hidden';
 }
 
 function render() { // adds/removes css depending of values of the board array
@@ -61,7 +62,7 @@ function render() { // adds/removes css depending of values of the board array
 }
 
 function handleStartClick(evt) { // establishes which player should start and generates messages about winning
-  startMsg.innerHTML = `<h3>Choose the column you'd like to drop your piece down.</h3><br><p>First to get four chips in a row wins!</p>`;
+  startMsg.innerHTML = `Choose the column you'd like to drop your piece down.<br>First to get four chips in a row wins!`;
   start.style.display = 'none';
   if (evt.target.id === 'whiteStartBtn') {
     playerTurn = 1;
@@ -70,6 +71,7 @@ function handleStartClick(evt) { // establishes which player should start and ge
     playerTurn = -1;
     topMsg.innerText = 'Gray picks first!';
   }
+  reset.style.visibility = 'visible';
 }
 
 function handleClick(evt) { // this function is called upon clicks to the board
