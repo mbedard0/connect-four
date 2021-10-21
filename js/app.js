@@ -112,23 +112,15 @@ function winConditions(rowNumber, columnNumber, idxNum) { // called in handleCli
   }
   else if (vertWin !== 0) {
     isGameOver = true;
-    console.log('vertical win')
-    console.log(vertWin)
     return vertWin
   } else if (horizontalWin !== 0) {
     isGameOver = true;
-    console.log('horizontal win')
-    console.log(horizontalWin)
     return horizontalWin
   } else if (diagWin1 !== 0) {
     isGameOver = true;
-    console.log('diagWin1')
-    console.log(diagWin1)
     return diagWin1
   } else if (diagWin2 !== 0) {
     isGameOver = true;
-    console.log('diagWin2')
-    console.log(diagWin2)
     return diagWin2
   } else {
     return 0  
