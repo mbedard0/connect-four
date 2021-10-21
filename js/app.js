@@ -62,15 +62,17 @@ function render() { // adds/removes css depending of values of the board array
 }
 
 function handleStartClick(evt) { // establishes which player should start and generates messages about winning
-  startMsg.innerHTML = `<p>Choose the column you'd like to drop your piece down. First to get four chips in a row wins!</p>`;
-  start.style.display = 'none';
-  if (evt.target.id === 'ylwStartBtn') {
+  if (evt.target.id === 'startBtns') {
+    return
+  } else if (evt.target.id === 'ylwStartBtn') {
     playerTurn = 1;
     topMsg.innerText = 'Yellow picks first!';
   } else if (evt.target.id === 'redStartBtn') {
     playerTurn = -1;
     topMsg.innerText = 'Red picks first!';
   }
+  startMsg.innerHTML = `<p>Choose the column you'd like to drop your piece down. First to get four chips in a row wins!</p>`;
+  start.style.display = 'none';
   reset.style.visibility = 'visible';
 }
 
