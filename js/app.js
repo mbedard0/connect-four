@@ -112,15 +112,23 @@ function winConditions(rowNumber, columnNumber, idxNum) { // called in handleCli
   }
   else if (vertWin !== 0) {
     isGameOver = true;
+    console.log('vertical win')
+    console.log(vertWin)
     return vertWin
   } else if (horizontalWin !== 0) {
     isGameOver = true;
+    console.log('horizontal win')
+    console.log(horizontalWin)
     return horizontalWin
   } else if (diagWin1 !== 0) {
     isGameOver = true;
+    console.log('diagWin1')
+    console.log(diagWin1)
     return diagWin1
   } else if (diagWin2 !== 0) {
     isGameOver = true;
+    console.log('diagWin2')
+    console.log(diagWin2)
     return diagWin2
   } else {
     return 0  
@@ -159,7 +167,7 @@ function getDiagonal1(idxNum, columnNumber, rowNumber) { // takes the index numb
   for (let i = 0; i <= Math.min(height,columnNumber); i++) {
     arr.push(idxNum + (6*i));
   }
-  return arr.sort();
+  return arr.sort(function (a, b) {  return a - b;  });
 }
 
 function getDiagonal2(idxNum, columnNumber, rowNumber) { // takes the index number, row number, and column number of a circle and returns an array of the circle index numbers up and to the left and down and to the right
@@ -172,7 +180,7 @@ function getDiagonal2(idxNum, columnNumber, rowNumber) { // takes the index numb
   for (let i = 0; i <= Math.min(height,colToRight); i++) {
     arr.push(idxNum + (8*i));
   } 
-  return arr.sort();
+  return arr.sort(function (a, b) {  return a - b;  });
 }
 
 function lengthArrValues(arr) { // returns the value of the board array values at the index numbers specified in the array taken as a parameter
