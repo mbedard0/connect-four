@@ -49,6 +49,7 @@ My initial wireframe looked like the below. It has some notable differences from
 - HTML
 - CSS
 - Git
+- Bootstrap
 
 ---
 
