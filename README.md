@@ -58,7 +58,6 @@ My initial wireframe looked like the below. It has some differences from the fin
 - JavaScript
 - HTML
 - CSS
-- Git
 - Bootstrap
 
 ---
