@@ -26,10 +26,20 @@ Once I solved this, I began working on developing functions to evaluate when a w
 I first thought to create a smaller board size (5x6), which I thought would be easier to create win conditions for. However, once I developed functions for win conditions, I realized that the board size was fairly easier to scale up and decided to change to a 7x6 board size.
 
 
-My initial wireframe looked like the below. It has some notable differences from the final product.
-[INSERT PICTURE]
+My initial wireframe looked like the below. It has some differences from the final product.
 
-[DIFFERENCES]
+**Wireframe**
+![Wireframe](https://i.imgur.com/Pj0zgd2.png)
+
+![Wireframe](https://i.imgur.com/enA1zhe.png)
+
+**Final Design**
+
+![Start Page](https://i.imgur.com/MARWVn9.png)
+
+![Playing Page](https://i.imgur.com/rw9htdz.png)
+
+![Win Page](https://i.imgur.com/Q2oWXqF.png)
 
 ---
 <h2>Getting Started</h2>
