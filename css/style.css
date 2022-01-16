@@ -9,6 +9,10 @@ body {
   grid-template-rows: 25% 70% 5%;
 }
 
+/* #top-section{
+  position: absolute;
+} */
+
 .flex-container {
 	align-items: center;
 	justify-content: center;
@@ -37,8 +41,8 @@ section#startBtns {
 div.circle {
   background-color: white;
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 6vh;
+  height: 6vh;
   border: 2px solid gray;
   font-size: 8vmin;
   margin-left: 20px;
@@ -46,7 +50,6 @@ div.circle {
 
 .yellow-circle {
   background-color: yellow !important;
-  
 }
 
 .red-circle {
@@ -54,12 +57,12 @@ div.circle {
 }
 
 p {
-text-align: center;
+  text-align: center;
 }
 
 h1 {
-text-align: center;
-padding: 10px 0px 10px 0px;
+  text-align: center;
+  padding: 10px 0px 10px 0px;
 }
 
 .btn {

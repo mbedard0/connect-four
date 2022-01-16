@@ -63,7 +63,7 @@ function render() { // adds/removes css depending of values of the board array
 
 function handleStartClick(evt) { // establishes which player should start and generates messages about winning
   if (evt.target.id === 'startBtns') {
-    return
+    return;
   } else if (evt.target.id === 'ylwStartBtn') {
     playerTurn = 1;
     topMsg.innerText = 'Yellow picks first!';
@@ -97,7 +97,7 @@ function handleClick(evt) { // this function is called upon clicks to the board
     }
   }
   winner = winConditions(rowNumber, columnNumber, idxNum); // evaluates whether a win condition is met (will return 0, 1, -1 or tie)
-  render()
+  render();
 }
 
 function winConditions(rowNumber, columnNumber, idxNum) { // called in handleClick function. win conditions return 1, -1, 0, or tie
@@ -208,6 +208,6 @@ function gameOver() { // called after render. this function stops the game if a 
     topMsg.innerText = `Red wins!`;
     startMsg.innerText = '';
   } else if (winner === 'tie') {
-    topMsg.innerText = `It's a tie! Press reset to start a new game.`
+    topMsg.innerText = `It's a tie! Press reset to start a new game.`;
   }
 }
